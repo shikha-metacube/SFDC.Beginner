@@ -1,0 +1,11 @@
+<apex:page standardController="Student__c" >
+    <apex:form >
+        <apex:pageBlock title="Student">
+        
+        <apex:pageBlockButtons >
+            <apex:commandButton value="edit" action="{!edit}"/>
+            <apex:commandButton value="new" action="{!new}"/>
+            </apex:pageBlockButtons>
+            </apex:pageBlock>
+        </apex:form>
+</apex:page>
