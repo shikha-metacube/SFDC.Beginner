@@ -1,0 +1,10 @@
+<apex:page controller="jsongenerator" showHeader="false">  
+    {!jsondata}
+    <apex:pageblock >
+        <apex:pageblockTable value="{!jsonstring}" var="json">
+            <apex:column headerValue="Name" value="{!json.name}"/>
+            <apex:column headerValue="Industry" value="{!json.industry}"/>
+        </apex:pageblockTable>
+    </apex:pageblock>
+     
+</apex:page>

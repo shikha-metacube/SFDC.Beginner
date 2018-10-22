@@ -1,0 +1,19 @@
+public with sharing class jsongenerator {
+     
+    
+    public   string jsondata{get;set;}
+    public list<jsonvalue> jsonstring { get; set; }
+ 
+    public jsongenerator(){
+     string soql ='select name,industry from account';
+        List<Account> acct = Database.Query(soql);
+        jsondata = JSON.serialize(acct);
+        jsonstring = (List<jsonvalue>) System.JSON.deserialize(jsondata , List<jsonvalue>.class);
+                 
+    }
+    public class jsonvalue{
+ 
+                public String name{get;set;}
+                public String industry{get;set;}
+    }
+}
