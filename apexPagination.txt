@@ -1,0 +1,27 @@
+<apex:page standardController="Account" recordSetVar="accounts">
+<apex:form >
+<apex:pageBlock title="Account List">
+<apex:pageBlockTable value="{!accounts}" var="a">
+<apex:column >
+<apex:facet name="header">Account Name</apex:facet>
+<apex:outputField value="{!a.Name}"/>
+</apex:column>
+<apex:column >
+<apex:facet name="header">BillingCity</apex:facet>
+<apex:outputField value="{!a.BillingCity}"/>
+</apex:column>
+<apex:column >
+<apex:facet name="header">BillingState</apex:facet>
+<apex:outputField value="{!a.BillingState}"/>
+</apex:column>
+<apex:column >
+<apex:facet name="header">BillingCountry</apex:facet>
+<apex:outputField value="{!a.BillingCountry}"/>
+</apex:column>
+</apex:pageBlockTable>
+
+<apex:commandLink action="{!previous}">Previous</apex:commandLink>
+  <apex:commandLink action="{!next}">Next</apex:commandLink>
+</apex:pageBlock>
+</apex:form>
+</apex:page>
