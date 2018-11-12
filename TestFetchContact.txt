@@ -1,0 +1,19 @@
+@isTest
+public class TestFetchContact {
+   @isTest
+    public static void getContacts(){
+      Account a = new Account();
+        a.Name = 'Test Account';
+         Insert a;
+        
+        Contact cont = New Contact();
+        cont.FirstName ='Bob';
+        cont.LastName ='Masters';
+        cont.AccountId = a.Id;
+        Insert cont;
+        Test.startTest();
+        FetchContactRelatedToAccount fc= new  FetchContactRelatedToAccount();
+        fc.searchForContacts(a.Id);
+        Test.stopTest();
+}
+}
