@@ -1,0 +1,36 @@
+@isTest
+public class TestNotAllowDeleteClass {
+@isTest
+    public static void testTrigger(){
+        DemoClass__c dc= new DemoClass__c();
+        dc.Name='Sixth';
+        dc.Board__c='CBSE';
+        insert dc;
+        
+        
+        DemoStudent__c dmstudent= new DemoStudent__c();
+        dmstudent.Name='Tim';
+        dmstudent.firstname__c='Tim';
+            dmstudent.lastname__c='jack';
+        dmstudent.DemoClass__c=dc.Id;
+        dmstudent.Sex__c='Female';
+        insert dmstudent;
+        DemoStudent__c dmstudent1= new DemoStudent__c();
+        dmstudent1.Name='Timi';
+        dmstudent1.firstname__c='Timi';
+            dmstudent1.lastname__c='jacki';
+        dmstudent1.DemoClass__c=dc.Id;
+        dmstudent1.Sex__c='Female';
+        insert dmstudent1;
+        
+        Test.startTest();
+        Database.DeleteResult result = Database.delete(dc, false);
+        Test.stopTest();
+        
+        
+        System.assert(result.getErrors().size() > 0);
+        System.assertEquals('Cannot Delete the class with female student more than one',
+                             result.getErrors()[0].getMessage());
+        
+            }
+}

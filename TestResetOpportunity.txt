@@ -1,0 +1,52 @@
+@isTest
+public class TestResetOpportunity {
+@isTest
+    public static void testTrigger(){
+       
+        Product2 prod = new Product2( Name = 'Product X', ProductCode = 'Pro-X', isActive = true );
+         insert prod;
+         
+        Pricebook2 testpricebook = new Pricebook2(Name= 'new price');
+       
+        insert testpricebook;
+        
+       // Pricebook2 standardPB = [select id from Pricebook2 where isStandard=true];
+    
+        PricebookEntry pbEntry = new PricebookEntry(Pricebook2Id = testpricebook.Id,Product2Id = prod.Id,UnitPrice = 100.00,IsActive = true);
+       insert pbEntry;
+        
+       // PricebookEntry pbe = new PricebookEntry(Pricebook2Id = testpricebook.Id, Product2Id = prod.Id, UnitPrice = 1000, IsActive = true);
+    //insert pbe;
+    
+        Opportunity oppt= new Opportunity();
+        oppt.Name ='New myAWS Deal';
+        oppt.StageName = 'Closed won';
+        oppt.Amount = 3000;
+        oppt.Custom_Status__c='Reset';
+        oppt.Pricebook2Id= testpricebook.Id;
+        
+        insert oppt;
+    
+OpportunityLineItem olineItem = new OpportunityLineItem( OpportunityId = oppt.Id,Quantity = 5, PricebookEntryId = pbEntry.Id);
+      Test.startTest();  
+      insert olineItem;                                                   
+    Test.stopTest();
+    
+        
+        
+    }
+}   
+     
+
+
+        
+        
+        
+      
+        
+        
+       
+      
+       
+      
+ 

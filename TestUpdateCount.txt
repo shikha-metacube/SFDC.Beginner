@@ -1,0 +1,23 @@
+@isTest
+public class TestUpdateCount {
+@isTest
+    public static void testTrigger(){
+        
+        DemoClass__c cl= new DemoClass__c();
+        cl.Name='KIDZEE';
+        cl.Board__c='CBSE';
+        insert cl;
+        
+        DemoStudent__c st= new DemoStudent__c();
+        st.firstname__c='Teddy';
+       st.LastName__c='jack';
+        st.Name='Teddy';
+        st.DemoClass__c=cl.Id;
+       Test.startTest(); 
+        
+       update cl;
+        
+        insert st;
+        Test.stopTest();
+    }
+}

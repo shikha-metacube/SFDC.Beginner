@@ -1,0 +1,31 @@
+@isTest
+public class TestOpportunityTrigger {
+    @isTest
+    public static void testTrigger(){
+        
+        Opportunity oppt= new Opportunity();
+        oppt.Name ='New mAWS Deal';
+        oppt.StageName = 'Closed won';
+        oppt.Amount = 3000;
+       
+        
+        Opportunity opptt= new Opportunity();
+        opptt.Name ='NewDeal';
+        opptt.StageName = 'Closed lost';
+        opptt.Amount = 300;
+       
+      
+        Test.startTest();
+        insert oppt;
+        
+        oppt.StageName = 'won';
+   update oppt;     
+        
+        
+        insert opptt;
+        opptt.StageName = 'lost';
+        update opptt;
+          Test.stopTest();
+          
+    }
+}

@@ -1,0 +1,18 @@
+@isTest
+public class TestRestrictTeacher {
+@isTest
+    public static void testtrigger(){
+        Teacher__c teacher= new Teacher__c();
+        teacher.Subjects__c='Hindi';
+        teacher.Name='geeta';
+        Test.startTest();
+        //insert teacher;
+        	 Database.SaveResult result = Database.insert(teacher, false);
+        
+        Test.stopTest();
+        
+        System.assert(!result.isSuccess());
+        System.assert(result.getErrors().size() > 0);
+       
+    }
+}

@@ -1,0 +1,21 @@
+@isTest
+public class TestNotAllowInsertStudent {
+@isTest
+    public static void testTrigger(){
+        class__c cls= new class__c();
+        cls.Name='Sixth';
+        cls.Name__c='Sixth';
+        cls.Student__c='a0E6F000029wtKWUAY';
+        cls.NumberOfStudents__c=10;
+        cls.MaxSize__c=10;
+        
+        //insert cls;
+        Test.startTest();
+        Database.SaveResult result = Database.insert(cls, false);
+        
+        Test.stopTest();
+        
+        
+        
+    }  
+}
