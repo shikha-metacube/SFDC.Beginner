@@ -1,0 +1,13 @@
+@isTest
+public class TestMap {
+@isTest
+    public static void testgetstudents(){
+         DemoClass__c dcs= new DemoClass__c();
+        dcs.Name='SEVENTH';
+        Test.startTest();
+        insert dcs;
+        Mapfunction.getStudents();
+        Test.stopTest();
+        
+    }
+}
