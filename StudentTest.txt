@@ -1,0 +1,25 @@
+@isTest
+public class StudentTest {
+    @isTest
+    public static void shouldgetStudents(){
+        
+        DemoClass__c cl= new DemoClass__c();
+        cl.Name='KIDZEE';
+        cl.Board__c='CBSE';
+        insert cl;
+        
+        DemoStudent__c st= new DemoStudent__c();
+        st.firstname__c='Teddy';
+       st.LastName__c='jack';
+        st.Name='Teddy';
+        st.DemoClass__c=cl.Id;
+        insert st;
+        
+ Test.StartTest();
+        
+        List<DemoStudent__c> result= Student.getStudents(cl.Id);
+        
+         Test.StopTest();
+    }
+
+}

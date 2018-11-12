@@ -1,0 +1,21 @@
+@isTest
+public class TestStackClass {
+@isTest
+    public static void testStack(){
+        
+        test.startTest();
+        StackClass sc= new StackClass();
+        Items__c item= new Items__c();
+        item.Name='chair';
+        item.Available_Quantity__c=10;
+        
+        sc.push(item);
+        System.assertEquals(item, sc.peek());
+        
+        sc.pop();
+        System.assertEquals(null, sc.peek());
+        System.assertEquals(null, sc.pop());
+        test.stopTest();
+        
+    }
+}

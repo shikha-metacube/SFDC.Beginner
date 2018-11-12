@@ -1,0 +1,13 @@
+@isTest
+public class DateFunctionTest {
+    @isTest
+    public static void getdaysBetweenExcludingWeekends(){
+        Datetime startDate=Datetime.newInstance(1990,1,1);
+        Datetime endDate=Datetime.newInstance(1990,1,10);
+        
+        Test.StartTest();
+        DateFunction.daysBetweenExcludingWeekends(startDate,endDate);
+        Test.StopTest();
+    }
+
+}
