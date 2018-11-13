@@ -1,0 +1,15 @@
+public class DateFunction {
+
+    public static Integer daysBetweenExcludingWeekends(Datetime startDate, Datetime endDate) {
+    Integer i = 0;
+
+    while (startDate < endDate) {
+        if (startDate.format('E') != 'Sat' && startDate.format('E') != 'Sun') {
+            i++;
+        }
+        startDate = startDate.addDays(1);
+    }
+
+    return i;
+}
+}

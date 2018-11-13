@@ -1,0 +1,5 @@
+public class Student{
+public static List<DemoStudent__c> getStudents(Id classid){
+      return [select firstname__c from DemoStudent__c where DemoClass__r.Id=:classid];  
+    }
+}
