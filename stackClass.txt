@@ -1,0 +1,36 @@
+public class StackClass {
+    
+    public List<Items__c> al;
+    
+    public StackClass() {
+        al = new List<Items__c>();
+    }
+    
+    public void push(Items__c item) {
+        al.add(item);
+    }
+    
+    public Items__c pop() {
+        if (!isEmpty())
+            return al.remove(size()-1);
+        else
+            return null;
+    }
+    
+    public boolean isEmpty() {
+        return (al.size() == 0);
+    }
+    
+    public Items__c peek() {
+        if (!isEmpty())
+            return al.get(size()-1);
+        else
+           return null;
+    }
+    
+    public Integer size() {
+        return al.size();
+    }
+    
+
+}
