@@ -1,0 +1,12 @@
+public class FetchContactRelatedToAccount {
+
+    public List<Account> searchForContacts( Id contactID){
+      Account acc= new Account();
+      if(acc.ContactIDs__c==null){
+      List<Account> acct=  ([select id, name, (select id, name from Contacts) from account where id =:contactID] );
+       return acct;
+      } 
+      
+      return null;
+      }       
+    }
