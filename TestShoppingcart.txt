@@ -1,0 +1,74 @@
+@isTest
+public class wrapperClassControllerTest {
+    
+    @isTest
+    public static void shouldGetItems(){
+        Items__c item= new Items__c();
+        
+        item.Name='testProduct';
+        
+        item.Available_Quantity__c=30;
+        item.Unit_Price__c= 200;
+        insert item;
+        wrapperClassController wc= new wrapperClassController();
+        
+        List<cItems> actualCItemsList = new List<cItems>();
+        cItems actualCItems = new cItems(item);
+        actualCItemsList.add(actualCItems);
+        
+        Test.StartTest();
+        
+        List<cItems> result = wc.getItems();
+        System.assertEquals(result, actualCItemsList);
+        
+        Test.StopTest();
+        
+    }   
+    
+    @isTest
+    public static void shouldProcessSelected(){
+        Items__c item= new Items__c();
+        
+        item.Name='testProduct';
+        
+        item.Available_Quantity__c=30;
+        item.Unit_Price__c= 200;
+        insert item;
+        Test.StartTest();
+        wrapperClassController wc= new wrapperClassController();
+        List<cItems> itemList= new  List<cItems>();
+        List<Items__c> selectedItemsTest= new List<Items__c>();
+        for(Items__c itemTest : [Select Id, Name, Product_Code__c, Available_Quantity__c, Unit_Price__c From Items__c where id =:item.Id]){
+            itemList.add(new cItems(itemTest));
+        }
+        ApexPages.StandardController sc = new ApexPages.StandardController(item);
+        
+        for(cItems itest: itemList){
+            itest.selected=true; 
+        }
+        
+        wc.itemList=itemList;
+        wc.processSelected();
+        Test.StopTest();
+        
+    }
+    
+    @isTest
+    public static void shouldSaveAndUpdateQuantity(){
+        List<Items__c> selectedItemsList = new List<Items__c>();
+        Items__c item= new Items__c();
+        
+        item.Name='testProduct';
+        
+        item.Available_Quantity__c=30;
+        item.Unit_Price__c= 200;
+        insert item;
+        selectedItemsList.add(item);
+        wrapperClassController wc= new wrapperClassController();
+		wc.selectedItems = selectedItemsList;
+        wc.savingUpdatedQuantity();
+        System.assertEquals(wc.result, item.Available_Quantity__c*item.Unit_Price__c);
+        
+    }
+    
+}

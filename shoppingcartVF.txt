@@ -1,0 +1,58 @@
+<apex:page controller="wrapperClassController" >
+    
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Product Selected" action="{!processSelected}" reRender="table2"/>
+            </apex:pageBlockButtons>
+           <apex:pageBlockTable value="{!items}" var="i" id="table">
+                <apex:column >
+                   <apex:inputCheckbox value="{!i.selected}"/>
+                </apex:column>
+               
+                <apex:column value="{!i.itm.Name}" />
+                <apex:column value="{!i.itm.Product_Code__c}" />
+                <apex:column value="{!i.itm.Available_Quantity__c}" />
+                <apex:column value="{!i.itm.Unit_Price__c}" />
+               </apex:pageBlockTable> 
+                </apex:pageBlock>
+            
+            
+            <apex:pageBlock mode="inlineEdit" title="Cart Items" >
+              <apex:commandButton action="{!savingUpdatedQuantity}" id="saveButton" value="Save & Place Your Order" />
+                
+                
+                
+                <apex:pageBlockTable value="{!selectedItems}" var="i" id="table2" >
+               <apex:column value="{!i.Name}" />
+                <apex:column value="{!i.Product_Code__c}" />
+                <apex:column value="{!i.Unit_Price__c}" />
+                
+           <apex:column headerValue="Order Quantity"> 
+                <apex:outputField value="{!i.Available_Quantity__c}">
+                    <apex:inlineEditSupport showOnEdit="saveButton"  event="ondblclick" 
+                        changedStyleClass="myBoldClass" resetFunction="resetInlineEdit"/>
+                       </apex:outputField>
+               </apex:column> 
+                 </apex:pageBlockTable>
+            
+            </apex:pageBlock> 
+        
+       <apex:pageBlock title="Order Details" id="frm">
+            
+        <apex:pageBlockTable value="{!selectedItems}" var="i" id="secondVF">
+        <apex:column value="{!i.Name}" />
+                <apex:column value="{!i.Product_Code__c}" />
+                <apex:column value="{!i.Unit_Price__c}" />
+                <apex:column value="{!i.Available_Quantity__c}" />
+            <apex:column headerValue="Total Price">
+            <apex:outputText value="{!i.Available_Quantity__c * i.Unit_Price__c }"></apex:outputText>
+            </apex:column>
+       
+        </apex:pageBlockTable>
+           <h1>Total Amount: {!result}</h1>
+    </apex:pageBlock>
+            
+                
+      </apex:form>
+  </apex:page>
