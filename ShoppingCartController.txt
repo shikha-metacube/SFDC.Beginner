@@ -1,0 +1,87 @@
+public class wcController {
+    public List<cItems> itemList {get;set;}
+    public Decimal result     { get; set; }
+    public List<Items__c> selectedItems {get;set;} 
+    
+    
+//: get Items & its details from database as a list of items   
+    public List<cItems> getItems(){
+        if(itemList == null){
+            
+            itemList = new List<cItems>();
+            
+            for(Items__c i:[Select Id, Name, Product_Code__c, Available_Quantity__c, Unit_Price__c From Items__c]){
+                
+                itemList.add(new cItems(i));
+            }
+            
+        }
+        return itemList;
+    }
+    
+    
+//: method to select items as a list & add them to cart 
+    public PageReference processSelected() {
+        selectedItems = new List<Items__c>();
+        
+        result= 0.0;
+        
+        system.debug(getItems());
+        for(cItems cItm: getItems()){
+            if(cItm.selected == true) {
+                selectedItems.add(cItm.itm);
+                result +=0;
+            }
+        }
+        
+        
+        
+        for(Items__c itm: selectedItems){
+            System.debug(itm);
+        }
+        itemList=null;
+        
+        return null;
+    }
+    
+//: saving the updated quantity of selected items  
+    public PageReference savingUpdatedQuantity(){
+        try{
+            upsert selectedItems;
+            PageReference pf= new PageReference('/'+Items__c.id);
+            return null;
+        }
+        catch(Exception e){
+            
+            return null;
+        }
+    }   
+    
+    public void calculateTotal(){
+        
+        result = 0.0;
+        for(Items__c  its : selectedItems){
+            
+            result += (its.Available_Quantity__c * its.Unit_Price__c);
+        }
+        
+    }
+    
+    public PageReference placeorder(){
+        PageReference vpf= new PageReference('/apex/OrderVF?id ='+Items__c.id);
+        return vpf;
+    }
+    
+    
+    
+    public class cItems {
+        public Items__c itm {get;set;}
+        public Boolean selected {get;set;}
+        
+        public cItems(Items__c i){
+            itm=i;
+            selected = false;
+        }
+    }  
+    
+}
