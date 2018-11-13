@@ -1,0 +1,19 @@
+trigger OpportunityTrigger on Opportunity (before insert,before update) {
+    
+ if (Trigger.IsBefore && Trigger.isInsert) {
+        for (Opportunity opp:Trigger.New) {
+            if (opp.StageName == 'Closed won' || opp.StageName == 'Closed lost') {
+                opp.CloseDate = System.Today();
+            }
+        }
+ }
+
+     if (Trigger.IsBefore && Trigger.isUpdate) {
+        for (Opportunity opp:Trigger.New) {
+            if ((Trigger.oldMap.get(opp.Id).StageName!='Closed won' ||Trigger.oldMap.get(opp.Id).StageName!='Closed lost') &&
+                (opp.StageName == 'Closed won' || opp.StageName == 'Closed lost')) {
+                opp.CloseDate = System.Today();
+            }
+        }
+    }
+}

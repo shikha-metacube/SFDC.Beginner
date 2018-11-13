@@ -1,0 +1,13 @@
+trigger UpdateCount on Student__c (after insert, before delete) {
+
+    if(Trigger.isAfter && Trigger.isInsert){
+
+    for (Student__c std : Trigger.new){
+        
+        Id cid = std.Class__c;
+        Integer clist = [Select Count() FROM Student__c where Class__c =: cid ];
+        
+        
+    }
+    }
+}

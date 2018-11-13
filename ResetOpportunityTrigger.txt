@@ -1,0 +1,20 @@
+trigger ResetOpportunityTrigger on Opportunity (after update) {
+if (Trigger.IsAfter && Trigger.IsUpdate) {
+
+        Set<Id> setOpportunityId = new Set<Id>();
+
+        for (Opportunity obj:Trigger.New) {
+
+            if (obj.Custom_Status__c != null && obj.Custom_Status__c == 'Reset'
+                && obj.Custom_Status__c != Trigger.OldMap.get(obj.Id).Custom_Status__c)
+            {
+
+                setOpportunityId.Add(obj.Id);
+            }
+            if (setOpportunityId  != null && setOpportunityId.size() > 0) {
+                 delete [SELECT Id FROM OpportunityLineItem where OpportunityId IN :setOpportunityId ];
+            }
+        }
+
+}
+}

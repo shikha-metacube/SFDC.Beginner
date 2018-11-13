@@ -1,0 +1,10 @@
+trigger RestrictTeacher on Teacher__c (before insert, before update) {
+
+    For (Teacher__c t : Trigger.New){
+        
+        if(t.Subjects__c=='Hindi'){
+           t.AddError('The subject "+t.Subjects__c+" is not allowed for DML');
+            
+        }
+     }
+}

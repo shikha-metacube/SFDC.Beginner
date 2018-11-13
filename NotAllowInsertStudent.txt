@@ -1,0 +1,14 @@
+trigger NotAllowInsertStudent on Student__c (before insert) {
+    
+     List<class__c> cl = [select NumberOfStudents__c,MaxSize__c from class__c];
+        
+         for(student__c std : trigger.new){
+         for(class__c c : cl){
+             
+         if(c.NumberOfStudents__c == c.MaxSize__c){
+                               
+          std.addError('Cannot insert Record');
+                 }
+             }
+     }
+}
