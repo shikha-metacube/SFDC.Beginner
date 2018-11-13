@@ -1,0 +1,16 @@
+public class StudentMap {
+public static Map<DemoClass__c, Set<Id>> getStudentsInClass()
+    {
+        Map<DemoClass__c, Set<Id>> studentsClassMap = new Map<DemoClass__c, Set<Id>>();
+        for(DemoClass__c classObject : [Select Name, (Select Id From DemoStudents__r) From DemoClass__c])
+        {   
+            Set<Id> studentIds = new Set<Id>();	
+            for(DemoStudent__c student : classObject.DemoStudents__r)
+            {
+                studentIds.add(student.Id);
+            }
+            studentsClassMap.put(classObject, studentIds);
+        }
+        return studentsClassMap;
+    }   
+}
